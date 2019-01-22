@@ -1,0 +1,81 @@
+Questions
+
+Once you have your database set up, run some queries to start understanding San Francisco's Airbnbs. Here are some questions you should try to answer:
+
+--What's the most expensive listing? What else can you tell me about the listing?
+
+SELECT
+	*
+From
+	sfo_listings
+ORDER BY
+	Price DESC
+LIMIT
+	1;
+
+
+--What neighborhoods seem to be the most popular?
+
+SELECT
+	neighbourhood, COUNT(*)
+FROM
+	sfo_listings
+GROUP BY
+	neighbourhood
+ORDER BY
+	COUNT(*) DESC
+LIMIT
+	1;
+
+
+--What time of year is the cheapest time to go to San Francisco?
+
+WITH
+	listing_rate
+AS
+(SELECT
+	ID, NAME, MIN(price)
+AS
+	price_min
+FROM
+	sfo_listings
+GROUP BY
+	1,2
+ORDER BY
+	price_min DESC)
+
+SELECT
+	calender_date, price_min
+FROM
+	listing_rate
+JOIN
+	sfo_calendar
+ON
+	listing_rate.id = sfo_calendar.listing_id
+
+
+--What about the busiest?
+
+WITH
+	listing_rate
+AS
+(SELECT
+	ID, NAME, MAX(price)
+AS
+	price_max
+FROM
+	sfo_listings
+GROUP BY
+	1,2
+ORDER BY
+	price_max DESC)
+
+SELECT
+	calender_date, (price_max)
+FROM
+	listing_rate
+JOIN
+	sfo_calendar
+ON
+	listing_rate.id = sfo_calendar.listing_id
+
