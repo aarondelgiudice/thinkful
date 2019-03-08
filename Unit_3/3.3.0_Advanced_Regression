@@ -1,0 +1,11 @@
+Advanced regression
+Unit 3 / Lesson 3
+
+Remember regression? The humble equation y = α + β1x turns out to be quite versatile.
+
+In this section we'll introduce some new forms of regression, explaining how they differ from the multivariate linear regression you've already met.
+
+Specifically, in this lesson we'll cover:
+- Regression with binary outcomes
+- Optimization methods beyond Least Squares
+- Feature selection methods for regression
